@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>❤️</title>
+
+<style>
+body{
+  margin:0;
+  overflow:hidden;
+  font-family: Arial, sans-serif;
+}
+
+/* كل صفحة */
+.page{
+  display:none;
+  height:100vh;
+  background-size: contain;      /* تظهر الصورة كاملة */
+  background-position: center;   /* تركز الصورة في المنتصف */
+  background-repeat: no-repeat;  /* تمنع تكرار الصورة */
+  background-color: black;       /* الخلفية السوداء لو فيه فراغات */
+  text-align:center;
+  color:white;
+}
+.active{display:block;}
+
+.box{
+  background:rgba(0,0,0,0.55);
+  padding:25px;
+  border-radius:18px;
+  margin:30vh 20px;
+}
+
+button,input{
+  padding:10px 22px;
+  font-size:18px;
+  border:none;
+  border-radius:20px;
+  margin-top:15px;
+}
+
+#error{
+  color:pink;
+  display:none;
+}
+
+/* القلوب المتحركة */
+.heart{
+  position:fixed;
+  color:pink;
+  font-size:20px;
+  animation:float 5s linear infinite;
+}
+
+@keyframes float{
+  from{bottom:-10px; opacity:1;}
+  to{bottom:100%; opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="sound" src="pop.mp3"></audio>
+
+<!-- صفحة 1 -->
+<div class="page active" style="background-image:url('image1.jpg')">
+  <div class="box">
+    <h2>يلي حياتي بتحلم بيك<br>وبشوف كل الكون ف عينيك</h2>
+    <button onclick="next()">Next</button>
+  </div>
+</div>
+
+<!-- صفحة 2 -->
+<div class="page" style="background-image:url('image2.jpg')">
+  <div class="box">
+    <h2>بحبك مهما قالوا الناس<br>ورافع ف هواكي الراس</h2>
+    <button onclick="next()">Next</button>
+  </div>
+</div>
+
+<!-- صفحة 3 (الاسم) -->
+<div class="page" style="background-image:url('image3.jpg')">
+  <div class="box">
+    <p>اكتبي اسمك عشان نكمّل ❤️</p>
+    <input id="name" placeholder="اسمها">
+    <p id="error">مش أي اسم ينفع هنا… اسم واحد بس 😉</p>
+    <button onclick="check()">Next</button>
+  </div>
+</div>
+
+<!-- صفحة 4 -->
+<div class="page" style="background-image:url('image4.jpg')">
+  <div class="box">
+    <h2>
+      لازم كنت هحبك مهما لقانا اتأخر<br>
+      حتي ف اخر يوم من عمري
+    </h2>
+    <button onclick="next()">Next</button>
+  </div>
+</div>
+
+<!-- صفحة 5 (الأخيرة) -->
+<div class="page" style="background-image:url('image5.jpg')">
+  <div class="box">
+    <h2 id="final"></h2>
+    <p>
+      لو مال قلبي عن هواك نزعته<br>
+      وشريت قلبا ف هواك يذوب<br><br>
+      لي بتيجي كتير ف بالي مفيش غيرك لي فرقالى
+    </p>
+  </div>
+</div>
+
+<script>
+let pages = document.querySelectorAll('.page');
+let i = 0;
+
+function next(){
+  document.getElementById("sound").play();
+  pages[i].classList.remove("active");
+  i++;
+  pages[i].classList.add("active");
+}
+
+function check(){
+  let n = document.getElementById("name").value.trim();
+  let error = document.getElementById("error");
+
+  if(n !== "Nada"){
+    error.style.display = "block";
+    return;
+  }
+
+  error.style.display = "none";
+  document.getElementById("final").innerText = "بحبك يا Nada ❤️";
+  next();
+}
+
+/* القلوب */
+setInterval(()=>{
+  let h = document.createElement("div");
+  h.innerHTML = "❤️";
+  h.className = "heart";
+  h.style.left = Math.random()*100 + "vw";
+  h.style.fontSize = (15 + Math.random()*20) + "px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),5000);
+},400);
+</script>
+
+</body>
+</html>
